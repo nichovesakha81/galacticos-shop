@@ -66,6 +66,7 @@
    https://nicholas-vesakha-galacticosshop.pbp.cs.ui.ac.id/
 
 **Bagan Request Client dan Penjelasan**
+
 Bagan yang sudah saya buat dapat diakses melalui tautan berikut: ristek.link/BaganTugas2
 
 Berdasarkan bagan alur yang telah dibuat, proses interaksi antara pengguna dengan aplikasi Galacticos Shop 
@@ -94,6 +95,7 @@ sesuai, maka akan dikembalikan error 404 Not Found. Sementara itu, jika terjadi 
 ada error pada query database, maka Django akan memberikan error 500 Server Error.
 
 **Peran settings.py**
+
 Pada Django, settings.py berfungsi sebagai pusat konfigurasi utama yang mengatur cara kerja proyek. 
 Di dalam file ini biasanya terdapat berbagai pengaturan penting mulai dari keamanan, aplikasi yang 
 digunakan, hingga konfigurasi database. Pada proyek Galacticos Shop, beberapa hal yang diatur di dalam 
@@ -125,6 +127,7 @@ database mana yang digunakan, aplikasi apa saja yang aktif, serta bagaimana requ
 diproses.
 
 **Cara Migrasi Database Django**
+
 Migrasi database di Django berfungsi untuk menjembatani perubahan yang dibuat pada file models.py 
 dengan struktur database yang sebenarnya. Dengan adanya mekanisme ini, setiap penambahan, penghapusan, 
 atau modifikasi atribut pada model dapat langsung diterapkan ke dalam tabel database tanpa perlu menulis 
@@ -146,6 +149,7 @@ pengembangan menjadi lebih fleksibel dan aman, terutama ketika bekerja dalam tim
 aplikasi ke lingkungan berbeda.
 
 **Mengapa Framework Django Dijadikan Permulaan Pembelajaran**
+
 Menurut saya, Django adalah framework yang sangat cocok digunakan untuk memulai perjalanan 
 dalam web development karena memberikan kemudahan bagi pemula maupun developer yang
 sudah berpengalaman. Django dilengkapi dengan banyak fitur bawaan yang siap pakai, seperti sistem 
@@ -166,6 +170,7 @@ berbagai jenis database dan mampu diandalkan, baik untuk proyek kecil dengan sed
 aplikasi besar dengan trafik yang cukup tinggi.
 
 **Feedback untuk Asisten Dosen pada Tutorial 1**
+
 Menurut saya, asisten dosen pada tutorial 1 sudah sangat baik dan membantu, khususnya Kak Danniel. Semua penjelasan jelas, 
 interaktif, dan kehadiran asisten dosen di Discord juga memudahkan untuk bertanya kapan saja. Overall, saya merasa terbantu 
 dan tidak ada kendala yang signifikan sejauh ini.
