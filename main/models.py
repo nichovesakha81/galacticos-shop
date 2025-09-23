@@ -1,7 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Pembuatan model pada aplikasi main dengan nama Product
 class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    
     CATEGORY_CHOICES = [
         ('jersey', 'Jersey'),
         ('shoes', 'Shoes'),
