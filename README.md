@@ -281,6 +281,7 @@ https://drive.google.com/drive/folders/1oIL8Mcmd5dTl4N5tn-foEcWEJk9jilds?usp=sha
 **[Tugas Individu 4]**
 
 **Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya!**
+
 Django AuthenticationForm adalah sebuah form bawaan yang disediakan Django di dalam modul django.contrib.auth.forms. Form ini secara otomatis menghadirkan field login 
 dasar berupa username dan password, lalu memverifikasi data yang dimasukkan dengan sistem autentikasi bawaan Django. Umumnya, form ini digunakan dalam proses login 
 karena sudah terintegrasi dengan fungsi authenticate() dan login(), sehingga developer tidak perlu membuat form autentikasi dari awal.
@@ -298,6 +299,7 @@ AuthenticationForm juga kurang cocok dipakai pada kebutuhan autentikasi yang leb
 login bertahap.
 
 **Apa perbedaan antara autentikasi dan otorisasi? Bagaimana Django mengimplementasikan kedua konsep tersebut?**
+
 Autentikasi dan otorisasi sering kali terdengar mirip, tetapi sebenarnya merupakan dua hal yang berbeda. Autentikasi adalah proses untuk memverifikasi identitas seorang 
 pengguna, biasanya dengan mencocokkan data seperti username dan password, kode OTP, atau tautan verifikasi email. Tujuannya adalah memastikan bahwa seseorang benar-benar 
 merupakan pihak yang berhak mengakses akun tersebut. Sebagai contoh, ketika seseorang login menggunakan username dan password, sistem akan mengecek apakah data yang dimasukkan
@@ -316,6 +318,7 @@ pengaturan role menggunakan groups. Dengan kombinasi autentikasi dan otorisasi i
 pengguna hanya bisa melakukan hal-hal yang sesuai dengan hak aksesnya.
 
 **Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?**
+
 Cookies merupakan file kecil berbentuk teks yang disimpan di perangkat pengguna ketika ia mengunjungi sebuah website. Di dalamnya bisa tersimpan informasi sederhana, seperti 
 preferensi tampilan, data login, atau daftar barang dalam keranjang belanja. Setiap kali pengguna mengirim permintaan ke server, browser akan otomatis mengirimkan cookies 
 tersebut. Kelebihan utama cookies adalah sifatnya yang persisten, karena bisa tetap tersimpan meskipun browser ditutup, sehingga pengalaman pengguna dapat dilanjutkan dengan 
@@ -332,6 +335,7 @@ berakhir saat browser ditutup, kecuali digabungkan dengan cookies agar lebih per
 tepat, terutama dalam sistem dengan banyak server (distributed system), yang membutuhkan sinkronisasi antar-sesi agar selalu konsisten.
 
 **Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?**
+
 Penggunaan cookies dalam pengembangan web sebenarnya tidak sepenuhnya aman secara default karena ada sejumlah risiko yang perlu diantisipasi. Secara teknis, cookies hanya 
 berupa file teks kecil yang bisa diakses oleh browser dan akan selalu dikirimkan bersama setiap request HTTP. Hal ini membuka peluang terjadinya serangan jika cookies tidak 
 dikonfigurasi dengan benar. Misalnya, cookies bisa dicuri melalui serangan Cross-Site Scripting (XSS) jika tidak diberi atribut HttpOnly, atau bisa disadap melalui jaringan 
@@ -346,3 +350,53 @@ cookies jatuh ke tangan yang salah.
 
 Cookies bukanlah mekanisme yang sepenuhnya aman secara default, tetapi Django telah melengkapi framework-nya dengan berbagai lapisan proteksi. Tugas developer adalah memastikan 
 agar konfigurasi keamanan tersebut diaktifkan dan dijalankan sesuai dengan kebutuhan aplikasi.
+
+**Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
+
+Saya mengembangkan fitur registrasi, login, dan logout dalam aplikasi ini. Pertama, saya menambahkan fungsi dan kelas yang diperlukan pada file views.py untuk mempermudah implementasi. Untuk 
+registrasi, saya menggunakan UserCreationForm dari Django, yang memungkinkan saya untuk langsung membuat formulir pendaftaran akun tanpa perlu menulis kode dari awal.
+
+Kemudian, saya membuat file register.html di folder main/templates, yang berfungsi sebagai halaman registrasi. Halaman ini meng-extend base.html untuk menjaga konsistensi desain. Saya juga 
+menambahkan fungsi user_login untuk menangani proses login pengguna, yang memanfaatkan fitur autentikasi built-in dari Django.
+
+Untuk tampilan login, saya membuat file login.html, yang juga meng-extend base.html. Fungsi user_logout kemudian ditambahkan menggunakan logout dari Django untuk memungkinkan pengguna keluar 
+dari aplikasi. Tombol logout juga saya letakkan di main.html agar pengguna dapat dengan mudah keluar dari aplikasi.
+
+Selanjutnya, saya mengimpor ketiga fungsi ini (register, user_login, dan user_logout) ke dalam file urls.py dan menambahkan path URL yang sesuai di dalam urlpatterns agar setiap fungsi bisa 
+diakses. Agar halaman utama dan halaman produk hanya dapat diakses oleh pengguna yang sudah login, saya menggunakan decorator login_required dan menerapkannya pada fungsi show_main dan 
+show_products.
+
+Setelah itu, saya membuat dua akun pengguna dan mengisi masing-masing dengan tiga data dummy untuk pengujian di lingkungan lokal. Program saya jalankan menggunakan perintah python manage.py 
+runserver di terminal, dan aplikasi dapat diakses melalui http://localhost:8000/. Di halaman pertama yang muncul, saya melakukan registrasi akun baru, memastikan password yang dimasukkan sesuai 
+dengan ketentuan yang ada, dan mengulanginya untuk membuat dua akun.
+
+Setelah akun berhasil dibuat, saya menambahkan produk dengan menekan tombol "+ Add Products" dan mengisi kolom yang diperlukan, seperti nama produk, harga, dan lainnya. Setelah itu, saya 
+menekan tombol "Add Product" untuk mengirimkan produk ke database. Langkah ini saya lakukan sebanyak enam kali, tiga kali untuk masing-masing pengguna. Untuk melihat produk yang telah 
+ditambahkan, masing-masing pengguna bisa menekan tombol "My Product" untuk memfilter agar tampilannya hanya produk yang ditambahkan oleh mereka masing-masing.
+
+Saya menghubungkan model Product dengan model User untuk memastikan setiap produk yang dibuat terasosiasi dengan pengguna tertentu. Langkah pertama adalah mengimpor kelas User di file models. 
+py. Kemudian, saya menambahkan atribut baru pada kelas Product, yaitu user, yang akan menyimpan informasi tentang pengguna yang membuat produk tersebut. Meskipun produk tanpa pengguna tetap 
+valid, dengan menghapus pengguna, semua produk yang terhubung dengan pengguna tersebut juga akan ikut terhapus secara otomatis.
+
+Setelah melakukan perubahan pada model, saya membuat file migrasi dengan menjalankan perintah python manage.py makemigrations dan kemudian menjalankan migrasi model dengan python manage.py 
+migrate untuk memperbarui basis data.
+
+Selanjutnya, saya memodifikasi fungsi create_products di views.py agar tidak langsung menyimpan hasil form ke database, sehingga data produk dapat diubah terlebih dahulu. Hal ini memungkinkan 
+untuk mengisi field user dengan request.user, sehingga setiap produk yang dibuat akan terhubung dengan pengguna yang sedang login.
+
+Untuk mempermudah penghubungan produk dengan pengguna, saya juga menambahkan fitur filter di views.py. Fungsi filter ini diterapkan pada fungsi show_main untuk menampilkan produk yang dibuat 
+oleh pengguna tertentu dan produk dari semua pengguna. Di halaman main.html, saya menambahkan tombol filter My Product dan All Product, yang memungkinkan pengguna memilih untuk melihat produk 
+mereka sendiri atau semua produk yang tersedia.
+
+Pada halaman products_detail.html, saya menambahkan informasi nama penjual atau pengguna yang membuat produk tersebut. Untuk meningkatkan pengalaman pengguna, saya menampilkan detail informasi 
+pengguna, seperti nama pengguna yang login, dan mengimplementasikan penggunaan cookies.
+
+Selanjutnya, saya mengimpor fungsi dan kelas yang diperlukan pada views.py, seperti reverse, datetime, dan HttpResponseRedirect. Di dalam fungsi user_login, saya memodifikasi kode agar setelah 
+form login valid, cookies diterapkan, memungkinkan aplikasi untuk melacak waktu terakhir kali pengguna melakukan login dengan variabel last_login. Variabel ini ditambahkan ke dalam dictionary 
+context.
+
+Selain itu, saya memodifikasi fungsi user_logout agar dapat menghapus cookie ketika pengguna logout, menandakan bahwa sesi pengguna telah selesai. Saya juga menambahkan variabel baru pada 
+dictionary context di views.py, yaitu username, yang menyimpan informasi tentang nama pengguna yang sedang login, yang diambil dari request.user.username.
+
+Terakhir, saya menampilkan informasi tentang last_login dan username pengguna pada halaman main.html, yang ada di main/templates, agar pengguna dapat melihat kapan terakhir kali mereka login 
+serta nama mereka saat berada di halaman utama.
